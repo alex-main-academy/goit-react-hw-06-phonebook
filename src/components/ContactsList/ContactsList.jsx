@@ -8,11 +8,9 @@ const ContactsList = () => {
   const dispatch = useDispatch();
 
   if (searchFilter !== '') {
-    userContacts = [
-      ...userContacts.filter(item => item.name.includes(searchFilter)),
-    ];
-  } else {
-    userContacts = [...userContacts];
+    userContacts = userContacts.filter(({ name }) =>
+      name.includes(searchFilter)
+    );
   }
 
   return (
