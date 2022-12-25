@@ -1,4 +1,4 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import {
@@ -9,34 +9,13 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
+import { addContact } from './addContactSlice';
 
 const persistConfig = {
   key: 'root',
   storage,
+  blacklist: ['filter'],
 };
-
-const state = {
-  contacts: [],
-  filter: '',
-};
-
-const addContact = createSlice({
-  name: 'addContact',
-  initialState: state,
-  reducers: {
-    addUser(state, action) {
-      state.contacts.push(action.payload);
-    },
-    deleteUser(state, action) {
-      state.contacts = [
-        ...state.contacts.filter(item => item.id !== action.payload),
-      ];
-    },
-    filterArray(state, action) {
-      state.filter = action.payload;
-    },
-  },
-});
 
 const persistedReducer = persistReducer(persistConfig, addContact.reducer);
 

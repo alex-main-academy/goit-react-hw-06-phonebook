@@ -9,16 +9,11 @@ import SearchContact from './SearchContact/SearchContact';
 export const App = () => {
   const dispatch = useDispatch();
   const contactsArray = useSelector(state => state.contacts);
-  const nameArray = [];
 
   const handleAddContact = (event, name, number, handleClearState) => {
     event.preventDefault();
 
-    contactsArray.map(item => {
-      return nameArray.push(item.name);
-    });
-
-    if (nameArray.includes(name)) {
+    if (contactsArray.find(item => item.name.includes(name))) {
       alert('You can not add user with this name');
       handleClearState();
       return;

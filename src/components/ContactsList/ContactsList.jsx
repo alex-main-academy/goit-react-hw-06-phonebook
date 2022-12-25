@@ -3,22 +3,21 @@ import { deleteUser } from 'redux/store';
 import css from './ContactsList.module.css';
 
 const ContactsList = () => {
-  const userContacts = useSelector(state => state.contacts);
+  let userContacts = useSelector(state => state.contacts);
   const searchFilter = useSelector(state => state.filter);
   const dispatch = useDispatch();
-  let newArray = [];
 
   if (searchFilter !== '') {
-    newArray = [
+    userContacts = [
       ...userContacts.filter(item => item.name.includes(searchFilter)),
     ];
   } else {
-    newArray = [...userContacts];
+    userContacts = [...userContacts];
   }
 
   return (
     <ul className={css.contacts__list}>
-      {newArray.map(({ name, number, id }) => {
+      {userContacts.map(({ name, number, id }) => {
         return (
           <li key={id} className={css.contacts__item}>
             {name} {number}
